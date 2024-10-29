@@ -17,13 +17,11 @@ def channel_id():
 
 
 @pytest.fixture(scope="module")
-def get_headers():
-    # Получаем токен из переменной окружения
+def headers():
     token = os.getenv('TOKEN')
     if not token:
         raise ValueError("Токен не найден. Убедитесь, что переменная окружения TOKEN задана.")
-
-    # Создаем заголовки для запроса
+    
     headers = {
         'Authorization': f"Bot {token}",
         'Content-Type': 'application/json'
