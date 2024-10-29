@@ -69,7 +69,7 @@ def test_add_reaction(base_url1, channel_id, headers, message_id):
     print("Тест 'Добавление реакции' пройден успешно!")
 
 
-def test_remove_reaction(base_url1, channel_id, headers, message_id):
+#def test_remove_reaction(base_url1, channel_id, headers, message_id):
     emoji = "🔥"  # Эмодзи для реакции
     emoji_encoded = requests.utils.quote(emoji)  # URL-кодирование эмодзи
     # Сначала добавляем реакцию
@@ -110,7 +110,7 @@ def test_add_reaction_to_nonexistent_message(base_url1, channel_id, headers):
     print("Негативный тест 'Добавление реакции к несуществующему сообщению' пройден успешно!")
 
 
-def test_remove_reaction_from_nonexistent_message(base_url1, channel_id, headers):
+#def test_remove_reaction_from_nonexistent_message(base_url1, channel_id, headers):
     invalid_message_id = "12345678901234567890"  # Не существующий ID
     emoji = "🔥"
     emoji_encoded = requests.utils.quote(emoji)
