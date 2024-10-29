@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 import pytest
+import allure
 
 load_dotenv()
 
@@ -16,15 +17,24 @@ def channel_id():
 
 
 @pytest.fixture(scope="module")
-def headers():
-    token = os.getenv("TOKEN")
+def get_headers():
+    # Получаем токен из переменной окружения
+    token = os.getenv('TOKEN')
     if not token:
         raise ValueError("Токен не найден. Убедитесь, что переменная окружения TOKEN задана.")
-    return {
-        "Authorization": f"Bot {token}",
-        "Content-Type": "application/json"
+
+    # Создаем заголовки для запроса
+    headers = {
+        'Authorization': f"Bot {token}",
+        'Content-Type': 'application/json'
     }
 
+    # Логируем заголовки, скрывая токен
+    headers_to_log = headers.copy()
+    headers_to_log['Authorization'] = 'Bot [REDACTED]'
+    allure.attach(str(headers_to_log), name="Request Headers", attachment_type=allure.attachment_type.TEXT)
+    
+    return headers
 
 @pytest.fixture
 def message_id(base_url1, channel_id, headers):
