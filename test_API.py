@@ -78,10 +78,9 @@ def test_remove_reaction(base_url1, channel_id, headers, message_id):
     # Теперь удаляем реакцию
     remove_reaction_url = f"{base_url1}/channels/{channel_id}/messages/{message_id}/reactions/{emoji_encoded}/@me"
     response = requests.delete(remove_reaction_url, headers=headers)
-    assert response.status_code == 204  # Успешное удаление
+    assert response.status_code == 204, f"Ожидался статус 204 для успешного удаления реакции, но получен {response.status_code}"
 
     print("Тест 'Удаление реакции' пройден успешно!")
-
 
 def test_create_message_without_content(base_url1, channel_id, headers):
     url = f"{base_url1}/channels/{channel_id}/messages"
